@@ -24,8 +24,8 @@ func New() *echo.Echo {
 	eCrypto.Use(middleware.JWTWithConfig(config))
 	eTransactions.Use(middleware.JWTWithConfig(config))
 	eUser.POST("/signup", createuser.CreateUser)
-	eUser.POST("/sell", order.Penjualan)
 	eCrypto.GET("/price/:id", crypto.Cekprice)
 	eTransactions.POST("/buy", order.Pembelian)
+	eTransactions.POST("/sell", order.Penjualan)
 	return e
 }

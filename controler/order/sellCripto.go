@@ -11,17 +11,18 @@ import (
 
 	"github.com/labstack/echo/v4"
 	gecko "github.com/superoo7/go-gecko/v3"
-	"gorm.io/gorm"
+	// "gorm.io/gorm"
 )
 
 func Penjualan(c echo.Context) error {
 
 	var user user.User
-	var result *gorm.DB
+	// var result *gorm.DB
 	var countqtt float64
 	var seller seller.Sell
 	var hasil float64
 	var counting int
+	var total int
 	falseInput := []string{}
 	c.Bind(&seller)
 	cg := gecko.NewClient(nil)
@@ -45,19 +46,35 @@ func Penjualan(c echo.Context) error {
 	seller.Qtt = seller.Percentage * hasil
 	seller.Intake = int(hasil * float64(price.MarketPrice) * seller.Percentage)
 	seller.PriceSell = int(price.MarketPrice)
-	temp := hasil - ((seller.Qtt) / countqtt)
+	temp := (hasil - (seller.Qtt)) / countqtt
 	sementara := configs.DB.Model(transaction.Transaction{}).Where("coin = ? AND user_id = ?", seller.Coin, seller.UserId).Updates(map[string]interface{}{
 		"remnant_qtt": temp,
 	})
-	fmt.Println("cek error", sementara.Error)
-	result = configs.DB.Create(&seller)
-	if result.Error != nil || sementara.Error != nil {
-		return c.JSON(http.StatusBadRequest, api.BaseResponse{
-			http.StatusInternalServerError,
-			result.Error.Error(),
-			nil,
-		})
+	configs.DB.Create(&seller)
+
+	configs.DB.Raw("SELECT SUM(intake) FROM sells WHERE position = ? AND user_id = ?", "aktif", seller.UserId).Scan(&total)
+	configs.DB.Model(&user).Where("id= ?", seller.UserId).Update("asset", user.Asset+total)
+	rekam := configs.DB.Model(&user).Where("id= ?", seller.UserId).Update("asset", user.Asset+total).Error
+	if rekam == nil {
+		fmt.Println("pertambahan", rekam)
 	}
+
+	cekcek := configs.DB.Model(&user).Where("id= ?", seller.UserId).Update("asset", user.Asset+total).Error
+	if cekcek == nil {
+		temporary := configs.DB.Model(&seller).Where("position= ? AND user_id = ?", "aktif", seller.UserId).Updates(map[string]interface{}{
+			"position": "deaktif",
+		})
+		fmt.Println("update position ", temporary.Error)
+	}
+	fmt.Println("cek error", sementara.Error)
+	// result=configs.DB.Create(&seller)
+	// if result != nil || sementara.Error != nil {
+	// 	return c.JSON(http.StatusBadRequest, api.BaseResponse{
+	// 		http.StatusInternalServerError,
+	// 		result.Error.Error(),
+	// 		nil,
+	// 	})
+	// }
 	var response = api.BaseResponse{
 		http.StatusOK,
 		"transaction done",

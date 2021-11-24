@@ -18,8 +18,6 @@ type Transaction struct {
 	Qtt float64 `gorm:"not null" json:"qtt"`
 	//kripto yang dibeli
 	Coin string `gorm:"not null"  json:"coin"`
-	//posisi aktif/inaktif
-	Position string `gorm:"not null;default:aktif" json:"position"`
 	//sisa qtt yang dari terjual
 	RemnantQtt float64 `json:"remnant_qtt"`
 	//sisa percen qtt yang dari terjual
