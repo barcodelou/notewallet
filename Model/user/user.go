@@ -3,8 +3,6 @@ package user
 import (
 	"myapp/Model/result"
 	"myapp/Model/seller"
-
-	// "myapp/Model/seller"
 	"myapp/Model/transaction"
 	"time"
 )

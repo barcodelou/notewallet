@@ -27,5 +27,6 @@ func New() *echo.Echo {
 	eCrypto.GET("/price/:id", crypto.Cekprice)
 	eTransactions.POST("/buy", order.Pembelian)
 	eTransactions.POST("/sell", order.Penjualan)
+	eTransactions.GET("/result/:id", order.Result)
 	return e
 }

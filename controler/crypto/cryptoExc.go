@@ -16,10 +16,10 @@ func Cekprice(c echo.Context) error {
 		return c.String(http.StatusBadRequest, "not found")
 	}
 	var response = api.Kripto{
-		http.StatusOK,
-		price.ID,
-		price.MarketPrice,
-		price.Currency,
+		Code:    http.StatusOK,
+		Message: price.ID,
+		Harga:   price.MarketPrice,
+		Uang:    price.Currency,
 	}
 	return c.JSON(http.StatusOK, response)
 }

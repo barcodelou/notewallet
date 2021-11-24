@@ -1,7 +1,7 @@
 package transaction
 
 import (
-	"myapp/Model/result"
+	// "myapp/Model/result"
 
 	// "myapp/Model/seller"
 	"time"
@@ -21,6 +21,6 @@ type Transaction struct {
 	//sisa qtt yang dari terjual
 	RemnantQtt float64 `json:"remnant_qtt"`
 	//sisa percen qtt yang dari terjual
-	CreatedAt         time.Time       `gorm:"autoCreateTime"`
-	TransactionResult []result.Result `gorm:"foreign key:AssetResult;references:ID" `
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	// TransactionResult []result.Result `gorm:"foreign key:AssetResult;references:ID" `
 }
