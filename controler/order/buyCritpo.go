@@ -5,6 +5,7 @@ import (
 	"myapp/Model/transaction"
 	"myapp/Model/user"
 	configs "myapp/config"
+	handlerespon "myapp/controler/order/handleRespon"
 	"myapp/repo/mathematics"
 	"net/http"
 
@@ -22,33 +23,26 @@ func Pembelian(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, "user tidak ada")
 	}
-
 	if buy.Outake < user.Asset {
 		cg := gecko.NewClient(nil)
 		price, _ := cg.SimpleSinglePrice(buy.Coin, "idr")
-
-		// buy.Qtt = float64(buy.Outake) / float64(price.MarketPrice)
 		buy.Qtt = mathematics.FindQtt(float64(buy.Outake), float64(price.MarketPrice))
-		// buy.RemnantQtt = float64(buy.Outake) / float64(price.MarketPrice)
 		buy.RemnantQtt = mathematics.FindQtt(float64(buy.Outake), float64(price.MarketPrice))
 		buy.PriceBuy = int(price.MarketPrice)
 		result = configs.DB.Create(&buy)
 		configs.DB.Model(&user).Where("id= ?", buy.UserId).Update("asset", user.Asset-buy.Outake)
 		if result.Error != nil {
-			return c.JSON(http.StatusBadRequest, api.BaseResponse{
-				Code:    http.StatusInternalServerError,
-				Message: result.Error.Error(),
-				Data:    nil,
-			})
+			return c.JSON(http.StatusBadRequest, handlerespon.ErrorBuy(api.BaseResponse{}, result.Error.Error()))
 		}
 	}
-	var response = api.BaseResponse{
-		Code:    http.StatusOK,
-		Message: "transaction done",
-		Data: map[string]interface{}{
-			"coin": buy.Coin,
-			"qtt":  buy.Qtt,
-		},
-	}
-	return c.JSON(http.StatusOK, response)
+	return c.JSON(http.StatusOK, handlerespon.SucsessBuy(api.BaseResponse{}, buy))
 }
+
+// if result.Error != nil {
+// 	// return c.JSON(http.StatusBadRequest, api.BaseResponse{
+// 	// 	Code:    http.StatusInternalServerError,
+// 	// 	Message: result.Error.Error(),
+// 	// 	Data:    nil,
+// 	// })
+// 	return c.JSON(http.StatusBadRequest, handlerespon.ErrorBuy(api.BaseResponse{}, result.Error.Error()))
+// }
