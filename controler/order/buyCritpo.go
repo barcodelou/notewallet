@@ -1,6 +1,7 @@
 package order
 
 import (
+	"log"
 	"myapp/Model/api"
 	"myapp/Model/transaction"
 	"myapp/Model/user"
@@ -20,8 +21,11 @@ func Pembelian(c echo.Context) error {
 	var buy transaction.Transaction
 	c.Bind(&buy)
 	err := configs.DB.First(&user, buy.UserId).Error
-	if err != nil {
+	log.Println(user)
+	if user.ID == 0 {
 		return c.JSON(http.StatusBadRequest, "user tidak ada")
+	} else if err != nil {
+		return c.JSON(http.StatusInternalServerError, "database error")
 	}
 	if buy.Outake < user.Asset {
 		cg := gecko.NewClient(nil)
@@ -37,12 +41,3 @@ func Pembelian(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, handlerespon.SucsessBuy(api.BaseResponse{}, buy))
 }
-
-// if result.Error != nil {
-// 	// return c.JSON(http.StatusBadRequest, api.BaseResponse{
-// 	// 	Code:    http.StatusInternalServerError,
-// 	// 	Message: result.Error.Error(),
-// 	// 	Data:    nil,
-// 	// })
-// 	return c.JSON(http.StatusBadRequest, handlerespon.ErrorBuy(api.BaseResponse{}, result.Error.Error()))
-// }

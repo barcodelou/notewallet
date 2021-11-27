@@ -28,7 +28,11 @@ func CreateUser(c echo.Context) error {
 			})
 		}
 	} else {
-		return c.JSON(http.StatusNotAcceptable, handlerespon.HandlerUser(user.Name, err))
+		return c.JSON(http.StatusNotAcceptable,
+			api.BaseResponse{
+				Code: http.StatusNotAcceptable,
+				Data: handlerespon.HandlerUser(user.Name, err),
+			})
 	}
 	return c.JSON(http.StatusOK, handlerespon.HandlerGetJwt(api.BaseResponse{}, Token))
 }

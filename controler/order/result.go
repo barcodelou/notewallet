@@ -21,6 +21,7 @@ func Result(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, "user tidak ada")
 	}
+	// siapin database
 
 	FoundBuy, FoundSell = kripto.TransactionExist(id)
 	if FoundBuy || FoundSell {

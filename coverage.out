@@ -1,0 +1,7 @@
+mode: set
+myapp/controler/createUser/createUser.go:15.39,20.35 5 1
+myapp/controler/createUser/createUser.go:37.2,37.85 1 1
+myapp/controler/createUser/createUser.go:20.35,23.26 3 1
+myapp/controler/createUser/createUser.go:23.26,29.4 1 0
+myapp/controler/createUser/createUser.go:30.8,36.3 1 1
+myapp/controler/createUser/createUser.go:40.32,43.2 2 1

@@ -10,3 +10,6 @@ func main() {
 	e := routes.New()
 	e.Start(":8000")
 }
+
+//gawe aws sek lagi doker
+// ojo lali nambahi tabel
