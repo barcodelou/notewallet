@@ -51,11 +51,11 @@ type ConfigDB struct {
 
 func InitConfigDBTest() ConfigDB {
 	var configDB = ConfigDB{
-		DB_Username: "root",
-		DB_Password: "V3rr3ll0u.1",
-		DB_Host:     "127.0.0.1",
+		DB_Username: "admin",
+		DB_Password: "v3rr3ll0u",
+		DB_Host:     "testing.cj8zkyislcf5.us-east-2.rds.amazonaws.com",
 		DB_Port:     "3306",
-		DB_Database: "acp10_test",
+		DB_Database: "testing",
 	}
 	return configDB
 }
