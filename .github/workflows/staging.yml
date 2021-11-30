@@ -1,0 +1,17 @@
+name: "running unit test,build docker"
+on:
+  push:
+    branches:
+      - "testing_lite"
+jobs:
+  unit-test:
+    name: "unit  test"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: action/checkout@v2
+    - name: setup go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+    - name: running unit test
+      run: go test./... -cover

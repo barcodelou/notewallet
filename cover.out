@@ -1,13 +1,13 @@
 mode: set
+myapp/controler/crypto/cryptoExc.go:11.37,15.16 4 0
+myapp/controler/crypto/cryptoExc.go:18.2,24.40 2 0
+myapp/controler/crypto/cryptoExc.go:15.16,17.3 1 0
 myapp/controler/createUser/createUser.go:15.39,20.35 5 1
-myapp/controler/createUser/createUser.go:37.2,37.85 1 0
+myapp/controler/createUser/createUser.go:37.2,37.85 1 1
 myapp/controler/createUser/createUser.go:20.35,23.26 3 1
-myapp/controler/createUser/createUser.go:23.26,29.4 1 1
+myapp/controler/createUser/createUser.go:23.26,29.4 1 0
 myapp/controler/createUser/createUser.go:30.8,36.3 1 1
 myapp/controler/createUser/createUser.go:40.32,43.2 2 1
-myapp/controler/crypto/cryptoExc.go:11.37,15.16 4 1
-myapp/controler/crypto/cryptoExc.go:18.2,24.40 2 1
-myapp/controler/crypto/cryptoExc.go:15.16,17.3 1 0
 myapp/controler/order/buyCritpo.go:18.38,25.36 7 1
 myapp/controler/order/buyCritpo.go:30.2,30.29 1 1
 myapp/controler/order/buyCritpo.go:42.2,42.80 1 1
@@ -23,10 +23,10 @@ myapp/controler/order/result.go:21.16,23.3 1 0
 myapp/controler/order/result.go:27.27,34.3 6 0
 myapp/controler/order/result.go:34.8,34.22 1 0
 myapp/controler/order/result.go:34.22,36.3 1 0
-myapp/controler/order/sellCripto.go:17.38,29.16 9 1
-myapp/controler/order/sellCripto.go:33.2,38.26 4 1
+myapp/controler/order/sellCripto.go:17.38,29.16 9 0
+myapp/controler/order/sellCripto.go:33.2,38.26 4 0
 myapp/controler/order/sellCripto.go:42.2,55.20 9 0
 myapp/controler/order/sellCripto.go:59.2,59.84 1 0
 myapp/controler/order/sellCripto.go:29.16,31.3 1 0
-myapp/controler/order/sellCripto.go:38.26,40.3 1 1
+myapp/controler/order/sellCripto.go:38.26,40.3 1 0
 myapp/controler/order/sellCripto.go:55.20,58.3 1 0

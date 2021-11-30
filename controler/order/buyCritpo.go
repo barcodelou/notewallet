@@ -22,8 +22,8 @@ func Pembelian(c echo.Context) error {
 	c.Bind(&buy)
 	err := configs.DB.First(&user, buy.UserId).Error
 	log.Println(user)
-	if user.ID == 0 {
-		return c.JSON(http.StatusBadRequest, "user tidak ada")
+	if user.ID == 0 || buy.Coin == "" {
+		return c.JSON(http.StatusBadRequest, "error request")
 	} else if err != nil {
 		return c.JSON(http.StatusInternalServerError, "database error")
 	}
