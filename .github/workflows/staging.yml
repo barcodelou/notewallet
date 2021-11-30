@@ -1,11 +1,13 @@
-name: "running unit test,build docker"
+name: Unit Test, Build Docker Image, Deploy
 on:
   push:
     branches:
-      - "testing_lite"
+      - 'testing_lite'
+
 jobs:
+  #job 1: unit test
   unit-test:
-    name: "unit  test"
+    name: 'Do unit test to the project'
     runs-on: ubuntu-latest
     steps:
       - name: Setup github action (CI)
