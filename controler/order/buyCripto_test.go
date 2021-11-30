@@ -82,11 +82,11 @@ var (
 		"jumlah_beli":20000,
 		"coin":"bitcoin"
 	}`
-	falseJson = `{
-		"userId":0,
-		"jumlah_beli":20000,
-		"coin":"bitcoin"
-	}`
+	// falseJson = `{
+	// 	"userId":0,
+	// 	"jumlah_beli":20000,
+	// 	"coin":"bitcoin"
+	// }`
 )
 
 func TestBuyCripto(t *testing.T) {
@@ -109,20 +109,20 @@ func TestBuyCripto(t *testing.T) {
 			assert.Equal(t, http.StatusOK, rec.Code)
 		}
 	})
-	t.Run("false input", func(t *testing.T) {
-		req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(falseJson))
-		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
-		rec := httptest.NewRecorder()
-		c := e.NewContext(req, rec)
+	// t.Run("false input", func(t *testing.T) {
+	// 	req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(falseJson))
+	// 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	// 	rec := httptest.NewRecorder()
+	// 	c := e.NewContext(req, rec)
 
-		c.SetPath("/transactions/buy")
-		if assert.NoError(t, order.Pembelian(c)) {
-			body := rec.Body.String()
-			baseResponse := api.BaseResponse{}
-			if err := json.Unmarshal([]byte(body), &baseResponse); err != nil {
-				assert.Error(t, err, "Failed convert body to object")
-			}
-			assert.Equal(t, 400, rec.Code)
-		}
-	})
+	// 	c.SetPath("/transactions/buy")
+	// 	if assert.NoError(t, order.Pembelian(c)) {
+	// 		body := rec.Body.String()
+	// 		baseResponse := api.BaseResponse{}
+	// 		if err := json.Unmarshal([]byte(body), &baseResponse); err != nil {
+	// 			assert.Error(t, err, "Failed convert body to object")
+	// 		}
+	// 		assert.Equal(t, 400, rec.Code)
+	// 	}
+	// })
 }
