@@ -78,7 +78,7 @@ func InitEcho() *echo.Echo {
 
 var (
 	userJSON = `{
-		"userId":2,
+		"userId":3,
 		"jumlah_beli":20000,
 		"coin":"bitcoin"
 	}`

@@ -29,7 +29,7 @@ func TestResult(t *testing.T) {
 	c := e.NewContext(req, rec)
 	c.SetPath("/transaction/result/:id")
 	c.SetParamNames("id")
-	c.SetParamValues("2")
+	c.SetParamValues("3")
 
 	// Assertions
 	if assert.NoError(t, order.Result(c)) {

@@ -80,6 +80,12 @@ func InitDBTest() {
 }
 
 func MigrationTest() {
-	// DB.Migrator().DropTable(user.User{}, seller.Sell{}, transaction.Transaction{}, result.Result{})
+	DB.Migrator().DropTable(user.User{}, seller.Sell{}, transaction.Transaction{}, result.Result{})
 	DB.AutoMigrate(user.User{}, seller.Sell{}, transaction.Transaction{}, result.Result{})
+	var users = []user.User{{ID: 3, Name: "nona", Email: "hacker@gmail", Asset: 15000000}}
+	var seller = []transaction.Transaction{{ID: 3, UserId: 3, Outake: 1500000,
+		PriceBuy: 180000, Qtt: 10, Coin: "bitcoin", RemnantQtt: 10}}
+	// , {ID: 2, Name: "lola", Email: "lola@gmail", Asset: 15000000}
+	DB.Create(&users)
+	DB.Create(&seller)
 }

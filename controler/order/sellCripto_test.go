@@ -16,7 +16,7 @@ import (
 var (
 	// sellJSON = `{"userId":1,"coin":"dogecoin","jumlah_jual":1}`
 	sellJSON = `{
-		"userId":2,
+		"userId":3,
 		"jumlah_jual":0.2,
 		"coin":"bitcoin"
 	}`
