@@ -18,3 +18,19 @@ jobs:
           go-version: 1.17
       - name: Running unit test
         run: go test ./... -cover
+#  job 2: build docker image, push registry
+  build-push-docker:
+    name: 'Build image and push to registry'
+    runs-on: ubuntu-latest
+    needs: unit-test
+    steps:
+      - uses: actions/checkout@v2
+      - name: build docker
+        run: docker build -t yonathan99/kriptowallet .
+      - name: login dockerhub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ DOCKERHUB_USERNAME }}
+          password: ${{ DOCKERHUB_PASSWORD }}
+      - name: push the previously built image to registry
+        run: docker push yonathan99/kriptowallet
