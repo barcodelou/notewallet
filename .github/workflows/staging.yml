@@ -2,7 +2,7 @@ name: Unit Test, Build Docker Image, Deploy
 on:
   push:
     branches:
-      - 'testing_lite'
+      - 'main'
 
 jobs:
   #job 1: unit test
