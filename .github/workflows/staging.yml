@@ -34,3 +34,27 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: push the previously built image to registry
         run: docker push yonathan99/kriptowallet
+  deployment-to-ec2:
+    name: 'Deploy the image pushed to dockehub registry, to EC2'
+    runs-on: ubuntu-latest
+    needs: build-push-docker
+    steps:
+      - uses: actions/checkout@v2
+      - name: configuration SSH
+        env:
+          SSH_USER: ${{ secrets.SSH_USERNAME }}
+          SSH_KEY: ${{ secrets.KRIPTO_PEM }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/kripto.pem
+          chmod 400 ~/.ssh/kripto.pem
+          cat >>~/.ssh/config <<END
+          Host development
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/kripto.pem
+            StrictHostKeyChecking=no
+          END
+      - name: Connect EC2 & Remove All Container & Pull from Registry & Run on Container
+        run: ssh development 'docker rm -f $(docker ps -a -q) && docker pull yonathan99/kriptowallet:latest && docker run -d -p 8080:8080 --name kriptowallet yonathan99/kriptowallet:latest'
